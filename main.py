@@ -1,5 +1,6 @@
 
 import streamlit as st
+import langchain_helper
 
 st.title("Restaurant Recommendation App")
 cuisine = st.sidebar.selectbox(
@@ -7,16 +8,12 @@ cuisine = st.sidebar.selectbox(
     ["Indian", "Italian", "Chinese", "Mexican", "Thai"]
 )
 
-def recommend_restaurants_name_with_items(cuisine):
-    return {
-        'restaurant_names': ['Iyer Idli'],
-        'menu_items': ['Idli', 'Sambar', 'Vada']
-    }
+
 
 if(cuisine):
-    response = recommend_restaurants_name_with_items(cuisine)
-    st.header(response['restaurant_names'][0])
-    menu_items = response['menu_items']
+    response = langchain_helper.recommend_restaurants_name_with_items(cuisine)
+    st.header(response['restaurant_name'])
+    menu_items = response['menu_items'].split(", ")
     st.write("Menu Items:")
     for item in menu_items:
         st.write("- " + item)
